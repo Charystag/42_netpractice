@@ -37,3 +37,7 @@
 
 **Server**
 : A computer or process that provides data, services or resources that can be accessed by other computers or processes on the network
+
+## TCP/IP protocols
+
+The TCP/IP suite of protocols can be understood in terms of layers. Here is an illustration of the different layers of the TCP/IP suite ![Different layers of the TCP/IP suite](https://www.ibm.com/docs/en/ssw_aix_73/network/figures/comma32.jpg)
