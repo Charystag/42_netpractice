@@ -74,6 +74,9 @@ choice(){
 			[q] ) echo "Exiting..." ; exit 0 ;;
 			* ) echo "Please select a true option" ;; esac
 	done
+	if [ "$user_choice" -eq "1" ] ; then mask_to_bin ; exit 0
+	elif [ "$user_choice" -eq "2" ] ; then echo "Need to implement" ; exit 0
+	else conv_address ; fi
 }
 
 main(){
