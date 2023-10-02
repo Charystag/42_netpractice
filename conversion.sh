@@ -42,10 +42,10 @@ mask_to_bin(){
 	declare -i i=0
 	while [ "$i" -lt "32" ]
 	do
-		if [ "$i" -lt ${mask_size:1:$length} ] ; then dig='1' ; else dig='0' ; fi
+		if [ "$i" -lt "${mask_size:1:$length}" ] ; then dig='1' ; else dig='0' ; fi
 		mask="$mask""$dig"
 		(( ++i ))
-		if [ $(($i % 8)) -eq '0' -a "$i" -ne "32" ] ; then mask="$mask"'.' ; fi
+		if [ $((i % 8)) -eq '0' ] && [ "$i" -ne "32" ] ; then mask="$mask"'.' ; fi
 	done
 	echo "$mask"
 }
