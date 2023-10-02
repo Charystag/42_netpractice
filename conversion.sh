@@ -50,9 +50,13 @@ mask_to_bin(){
 	echo "$mask"
 }
 
-if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
-data="$1"
-if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
+main(){
+	if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
+	data="$1"
+	if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
+}
+
+main "$1"
 
 :<<'COMMENT'
 IFS='.' read -ra bonjour <<< "$1"
