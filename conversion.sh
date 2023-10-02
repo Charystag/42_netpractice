@@ -9,9 +9,9 @@
 	DOC
 conv_address(){
 	base_address="$1"
-	if [ "$1" == "" ] ; then echo "Please provide an ip address" ; return 1 ; fi
-	if [ "$2" == "" ] ; then base_in=10 ; else base_in="$2" ; fi
-	if [ "$3" == "" ] ; then base_out=2 ; else base_out="$3" ; fi
+	if [ "$1" = "" ] ; then echo "Please provide an ip address" ; return 1 ; fi
+	if [ "$2" = "" ] ; then base_in=10 ; else base_in="$2" ; fi
+	if [ "$3" = "" ] ; then base_out=2 ; else base_out="$3" ; fi
 	IFS='.' read -ra address <<< "$base_address"
 	if [ "${#address[@]}" -lt 1 ] ; then echo "No ip address found" ; return 2 ; fi
 	declare -i i=0
@@ -34,7 +34,7 @@ conv_address(){
 	DOC
 mask_to_bin(){
 	err_string="Please provide a mask of the form /x with -1<x<33"
-	if [ "$1" == "" ] ; then echo "$err_string" ; return 1 ; fi
+	if [ "$1" = "" ] ; then echo "$err_string" ; return 1 ; fi
 	mask_size="$1"
 	length=$((${#1}-1))
 	if [ "$length" -lt 1 ] ; then echo "$err_string" ; return 1 ; fi
@@ -50,10 +50,37 @@ mask_to_bin(){
 	echo "$mask"
 }
 
+:<<-'DOC'
+	Prints the main menu of the program
+	DOC
+menu(){
+	printf "%-12b%b\n" "[1]" "For mask conversion from /x to binary"
+	printf "%-12b%b\n" "[2]" "For mask conversion from binary to /x"
+	printf "%-12b%b\n" "[3]" "For ip conversion from decimal to binary"
+}
+
+:<<-'DOC'
+	Allows the user to choose their prefered option and to launch the right
+	function
+	DOC
+choice(){
+	#menu
+	printf "%b\n" "Please choose a conversion option"
+	while true
+	do 
+		menu
+		read -rn 1 user_choice
+		case "$user_choice" in ( [123] ) break ;; 
+			[q] ) echo "Exiting..." ; exit 0 ;;
+			* ) echo "Please select a true option" ;; esac
+	done
+}
+
 main(){
-	if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
-	data="$1"
-	if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
+	#if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
+	#data="$1"
+	choice
+	#if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
 }
 
 main "$1"
