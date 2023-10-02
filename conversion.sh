@@ -50,15 +50,10 @@ mask_to_bin(){
 	echo "$mask"
 }
 
-compute_mask(){
-	base_mask="$1"
-	if [ "$mask" == "" ] ; then echo "Please provide a subnet mask" ; return 1 ; fi
-	IFS='.' read -ra mask <<< "$mask"
-	if [ "${#mask[@]}" -lt 1 ] ; then echo "No subnet mask found" ; return 2 ; fi
-	declare -i i=0
-}
+if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
+data="$1"
+if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
 
-mask_to_bin "$1"
 :<<'COMMENT'
 IFS='.' read -ra bonjour <<< "$1"
 cat <<< "$1"
