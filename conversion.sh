@@ -27,6 +27,7 @@ conv_address(){
 	done
 	# shellcheck disable=SC2046
 	printf "%.8d\n" $(echo "ibase=$base_in;obase=$base_out;${address[$i]}" | bc)
+	echo "back to main menu" ; choice
 }
 
 :<<-'MASK_TO_BIN'
@@ -65,6 +66,7 @@ menu(){
 	printf "%-12b%b\n" "[1]" "For mask conversion from /x to binary"
 	printf "%-12b%b\n" "[2]" "For mask conversion from binary to /x"
 	printf "%-12b%b\n" "[3]" "For ip conversion from decimal to binary"
+	printf "%-12b%b\n" "[q]" "To exit the program"
 }
 
 :<<-'CHOICE'
