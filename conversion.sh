@@ -1,5 +1,12 @@
 #!/usr/bin/bash
 
+:<<-'IS_BINARY'
+	Function that takes a string as an input and checks that for each digit
+	it is strictly between 0 and 1
+	IS_BINARY
+is_binary(){
+}
+
 :<<-'CONV_ADDRESS'
 	This function takes a string representing an IP address with bytes in decimal
 	base and outputs it in binary base.
@@ -37,10 +44,13 @@ conv_address(){
 	Input : /28
 	Output : 11111111.11111111.11111111.11110000
 	MASK_TO_BIN
+#Takes a mask (in CIDR) format or binary format and converts it to the other format
 mask_to_bin(){
 	prompt="Please provide a mask of the form /x with -1<x<33"
 	err_string="Invalid mask provided"
 	mask_string="$1"
+	echo "$mask_string"
+	echo "$1" >salut
 	if [ "$1" = "" ] ; then echo "$prompt" ; read -r mask_string ; fi
 	if [ "$mask_string" = "" ] || [ "${mask_string:0:1}" != "/" ] ; then echo "$err_string" ; return 1 ; fi
 	length=$((${#mask_string}-1))
@@ -54,9 +64,58 @@ mask_to_bin(){
 		(( ++i ))
 		if [ $((i % 8)) -eq '0' ] && [ "$i" -ne "32" ] ; then mask="$mask"'.' ; fi
 	done
-	echo "$mask"
+	echo "$mask" >salut
+}
+
+:<<-'LAUNCH_FUNCTION'
+	Launches the right function (according to main menu options) and brings the user back
+	to the main menu
+	LAUNCH_FUNCTION
+launch_function(){
+	param="$1"
+	if [ "$param" = "1" ] ; then mask_to_bin
+	elif [ "$param" = "2" ] ; then echo "Need to implement"
+	else conv_address ; fi
 	echo "Back to main menu"
 	choice
+}
+
+:<<-'GET_RANGE'
+	Gets the range of ip addresses covered using a given subnet mask
+	First the function compares until the end of the subnet mask and
+	it then construct the min and max ranges from this subnet mask.
+	It then prints the min and max ranges on standard output
+	GET_RANGE
+get_range(){
+	a_prompt="Please provide an ip address"
+	m_prompt="Please enter a subnet mask"
+	if [ "$2" = "" ]
+	then
+		user_input "$a_prompt" address 
+		user_input "$m_prompt" mask
+	else
+		mask="$2"
+		address="$1"
+	fi
+	echo bonjour
+	echo "This is the address len : ${#address}"
+	if [ "${mask:0:1}" = "/" ] ; then echo "mask before is : $mask" ; mask="$(mask_to_bin $mask)" ; echo "mask is : $mask" ; fi
+	if [ "${#address}" -ne "${#mask}" ] ; then echo "error: len(ip) != len(mask)" ; return 1 ; fi
+	declare -i i=0
+	echo "This is i : $i"
+	while [ "$i" -lt "${#address}" ]
+	do
+		echo "This is i : $i"
+		if [ "${mask:$i:1}" = "1" ]
+		then min_range="$min_range""${address:$i:1}" ; max_range="$max_range""${address:$i:1}"
+		elif [ "${mask:$i:1}" = "0" ] ; then min_range="$min_range"0 ; max_range="$max_range"1
+		elif [ "${mask:$i:1}" = "." ] ; then min_range="$min_range""." ; max_range="$max_range""."
+		else echo "error : unrecognized character in ip" ; return 1
+		fi
+		((++i))
+	done
+	echo "This is the min range : $min_range"
+	echo "This is the max range : $max_range"
 }
 
 :<<-'MENU'
@@ -84,9 +143,9 @@ choice(){
 			[q] ) echo "Exiting..." ; exit 0 ;;
 			* ) echo "Please select a true option" ;; esac
 	done
-	if [ "$user_choice" -eq "1" ] ; then mask_to_bin ; exit 0
-	elif [ "$user_choice" -eq "2" ] ; then echo "Need to implement" ; exit 0
-	else conv_address ; fi
+	if [ "$user_choice" -eq "1" ] ; then launch_function "1"
+	elif [ "$user_choice" -eq "2" ] ; then launch_function "2"
+	else launch_function "3" ; fi
 }
 
 :<<-'USER_INPUT'
@@ -105,7 +164,8 @@ main(){
 }
 
 #main
-same_subnet
+get_range "$@"
+
 
 :<<'COMMENT'
 IFS='.' read -ra bonjour <<< "$1"
