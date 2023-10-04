@@ -40,8 +40,8 @@ conv_address(){
 mask_to_bin(){
 	prompt="Please provide a mask of the form /x with -1<x<33"
 	err_string="Invalid mask provided"
-	echo "$prompt"
-	read -r mask_string
+	mask_string="$1"
+	if [ "$1" = "" ] ; then echo "$prompt" ; read -r mask_string ; fi
 	if [ "$mask_string" = "" ] || [ "${mask_string:0:1}" != "/" ] ; then echo "$err_string" ; return 1 ; fi
 	length=$((${#mask_string}-1))
 	if [ "$length" -lt 1 ] ; then echo "$err_string" ; return 1 ; fi
@@ -89,14 +89,23 @@ choice(){
 	else conv_address ; fi
 }
 
-main(){
-	#if [ "$1" == "" ] ; then echo "Please provide data to convert" ; exit 1 ; fi
-	#data="$1"
-	choice
-	#if [ "${data:0:1}" == "/" ] ; then mask_to_bin "$data" ; else conv_address "$data" ; fi
+:<<-'USER_INPUT'
+	Allows to prompt something to the user and to read one line of input from
+	the user 
+	USER_INPUT
+user_input(){
+	if [ "$2" = "" ] ; then echo "Function usage: user_input prompt var" ; return 1 ; fi
+	declare -n ref="$2"
+	echo "$1"
+	read -r ref
 }
 
-main
+main(){
+	choice
+}
+
+#main
+same_subnet
 
 :<<'COMMENT'
 IFS='.' read -ra bonjour <<< "$1"
