@@ -6,7 +6,7 @@
 #    By: nsainton <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/05 10:02:14 by nsainton          #+#    #+#              #
-#    Updated: 2023/10/05 10:39:29 by nsainton         ###   ########.fr        #
+#    Updated: 2023/10/08 09:59:55 by nsainto          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SCRIPT=$(SRCS_DIR)/$(NAME)
 .SUFFIXES=.sh
 
 all:	
-	@$(SCRIPT)
+	@cd $(SRCS_DIR) && ./$(NAME)
 
 lint:
 	@$(MAKE) -C $(SRCS_DIR) -f $(SHELL_LINTER)
