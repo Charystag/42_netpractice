@@ -24,7 +24,6 @@ mask_to_bin(){
 		mask="$mask""$dig"
 		(( ++i ))
 		if [ $((i % 8)) -eq '0' ] && [ "$i" -ne "32" ] ; then mask="$mask"'.' ; fi
-		if [ $((i % 4)) -eq '0' ] && [ "$i" -ne "32" ] ; then mask="$mask"" "; fi
 	done
 	echo "$mask"
 }
