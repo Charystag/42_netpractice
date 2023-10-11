@@ -11,7 +11,7 @@ for i in "${util[@]}" ; do source "$i" ; done
 launch_function(){
 	param="$1"
 	case "$param" in ( [1] ) mask_to_bin ;;
-					[2] ) echo "Need to implement" ;;
+					[2] ) bin_to_mask ;;
 					[3] ) conv_address ;;
 					[4] ) conv_address '' "2" "10" ;;
 					[5] ) get_range ;;
