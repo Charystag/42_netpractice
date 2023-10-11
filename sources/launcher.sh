@@ -12,7 +12,8 @@ launch_function(){
 	param="$1"
 	if [ "$param" = "1" ] ; then mask_to_bin
 	elif [ "$param" = "2" ] ; then echo "Need to implement"
-	else conv_address ; fi
+	elif [ "$param" = "3" ] ; then conv_address
+	else get_range ; fi
 	echo "Back to main menu"
 }
 
@@ -23,6 +24,7 @@ menu(){
 	printf "%-12b%b\n" "[1]" "For mask conversion from /x to binary"
 	printf "%-12b%b\n" "[2]" "For mask conversion from binary to /x"
 	printf "%-12b%b\n" "[3]" "For ip conversion from decimal to binary"
+	printf "%-12b%b\n" "[4]" "To compute a range of ip addresses"
 	printf "%-12b%b\n" "[q]" "To exit the program"
 }
 
@@ -37,7 +39,7 @@ choice(){
 	do 
 		menu
 		read -rn 1 user_choice ; echo
-		case "$user_choice" in ( [123] ) launch_function "$user_choice" ;; 
+		case "$user_choice" in ( [1-4] ) launch_function "$user_choice" ;; 
 			[q] ) echo "Exiting..." ; exit 0 ;;
 			* ) echo "Please select a true option" ;; esac
 	done
