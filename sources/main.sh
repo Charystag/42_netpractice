@@ -4,6 +4,7 @@ utils="./launcher.sh"
 source "$utils"
 
 main(){
+	local ret_val
 	choice
 }
 
