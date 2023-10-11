@@ -13,12 +13,31 @@ is_binary(){
 	while [ $i -lt "${#number}" ]
 	do
 		case "${number:$i:1}" in ( [12.] ) (( ++i )) ;;	
-			*) return 0 ;;
+			[3-9]) return 0 ;;
+			*) return 2 ;;
 		esac
 	done
 	return 1
 }
 
+:<<-'TO_BINARY'
+	Function that takes a string (representing an ip address or subnet mask)
+	as an input and converts it to its binary version.
+	If one of the number in input is not a binary number, the function
+	returns an error
+	TO_BINARY
+to_binary(){
+	IFS=" " read -ra parameters <<<"$@"
+	declare -i i=0
+	to_bin=""
+	while [ "$i" < "${#parameters[@]}" ] ; do
+	is_binary "${parameters[$i]}"
+	if [ "$?" -eq 2 ] ; then return 1
+	elif [ "$?" -eq 1 ] ; then (( ++i ))
+	else declare -n ref="${parameters[$i]}"
+	ref="$(conv_address ${parameters[$i]})" ; fi
+	done
+}
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
 # user input
