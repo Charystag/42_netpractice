@@ -11,8 +11,10 @@ for i in "${util[@]}" ; do source "$i" ; done
 	It then prints the min and max ranges on standard output
 	GET_RANGE
 get_range(){
-	a_prompt="Please provide an ip address"
-	m_prompt="Please enter a subnet mask"
+	a_prompt="Please provide an ip address in decimal format
+Example: 124.213.128.219 or 01111111.01111011.11010101.11111000"
+	m_prompt="Please enter a subnet mask in decimal, binary or CIDR format
+Example: 255.255.255.128 or 11111111.11111111.11111111.11110000 or /32"
 	if [ "$2" = "" ]
 	then
 		user_input "$a_prompt" address 

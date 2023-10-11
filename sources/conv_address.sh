@@ -12,7 +12,8 @@
 	Input : 
 	CONV_ADDRESS
 conv_address(){
-	prompt="Please provide an ip address"
+	prompt="Please provide an ip address in decimal format
+Example: 127.123.213.248"
 	#err_string="Invalid ip address provided"
 	if [ "$1" = "" ]
 	then echo "$prompt" ; read -r base_address
