@@ -24,7 +24,8 @@ get_range(){
 	if [ "${mask:0:1}" = "/" ] ; then mask="$(mask_to_bin $mask)" ; fi
 	to_binary "address" "mask"
 	if [ "$ret_val" -eq "1" ] ; then echo "Nan provided" ; return ; fi
-	if [ "${#address}" -ne "${#mask}" ] ; then echo "error: len(ip) != len(mask)" ; ret_val=1 ; return ; fi
+	if [ "${#address}" -ne "${#mask}" ] ; then echo "error: len(ip) != len(mask)" ; ret_val=1 ; 
+	echo "ip : $address" ; echo "mask : $mask" ; return ; fi
 	declare -i i=0
 	while [ "$i" -lt "${#address}" ]
 	do
@@ -35,7 +36,7 @@ get_range(){
 		fi
 		((++i))
 	done
-	echo "This is the min range : $min_range"
-	echo "This is the max range : $max_range"
+	echo "This is the min range : $(conv_address $min_range 2 10)"
+	echo "This is the max range : $(conv_address $max_range 2 10)"
 	ret_val=0
 }
