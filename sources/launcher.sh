@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # shellcheck source=/dev/null
-utils="mask_to_bin.sh conv_address.sh"
+utils="mask_to_bin.sh conv_address.sh get_range.sh"
 IFS=" " read -ra util <<< "$utils"
 for i in "${util[@]}" ; do source "$i" ; done
 
