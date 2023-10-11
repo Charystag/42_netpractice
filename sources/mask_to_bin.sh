@@ -29,15 +29,24 @@ mask_to_bin(){
 }
 
 bin_to_mask(){
-	prompt="Please provide a mask of the form a.b.c.d with a b c d binary numbers between
+	prompt="Please provide a mask of the form a.b.c.d with a b c d decimal numbers between
 0 and 255"
 	err_string="Invalid mask provided"
 	mask_string="$1"
 	if [ "$1" = "" ] ; then user_input "$prompt" "mask_string" ; fi
 	is_binary "$mask_string"
-	if [ "$mask_string" = "" -o "$ret_val" -ne 1 ]
+	if [ "$mask_string" = "" -o "$ret_val" -eq 2 ]
 	then echo "$err_string" ; ret_val=1 ; return ; fi
-	IFS='.' read -ra mask_values<<<"$mask_string"
+	if [ "$ret_val" -eq 0 ] ; then mask_string=`conv_address "$mask_string" 10 2` ; fi
 	declare -i i=0
-	if [ 
+	declare -i mask_len=0
+	echo "mask string is : $mask_string"
+	while [ "$i" -lt "${#mask_string}" ] 
+	do
+		tmp="${mask_string:$i:1}"
+		if [ "$tmp" = "0" ] ; then break ;
+		elif [ "$tmp" = "1" ] ; then (( ++mask_len )) ; fi
+		(( ++i ))
+	done
+	echo "/$mask_len"
 }
