@@ -12,12 +12,12 @@ is_binary(){
 	declare -i i=0
 	while [ $i -lt "${#number}" ]
 	do
-		case "${number:$i:1}" in ( [12.] ) (( ++i )) ;;	
-			[3-9]) return 0 ;;
-			*) return 2 ;;
+		case "${number:$i:1}" in ( [01.] ) (( ++i )) ;;	
+			[2-9]) ret_val=0 ; return ;;
+			*) ret_val=2 ; return ;;
 		esac
 	done
-	return 1
+	ret_val=1 ; return
 }
 
 :<<-'TO_BINARY'
@@ -30,13 +30,14 @@ to_binary(){
 	IFS=" " read -ra parameters <<<"$@"
 	declare -i i=0
 	to_bin=""
-	while [ "$i" < "${#parameters[@]}" ] ; do
-	is_binary "${parameters[$i]}"
-	if [ "$?" -eq 2 ] ; then return 1
-	elif [ "$?" -eq 1 ] ; then (( ++i ))
-	else declare -n ref="${parameters[$i]}"
-	ref="$(conv_address ${parameters[$i]})" ; fi
+	while [ "$i" -lt "${#parameters[@]}" ] ; do
+	declare -n ref="${parameters[$i]}"
+	is_binary "$ref"
+	if [ "$ret_val" -eq 2 ] ; then echo "This is the problematic term : $ref" ; ret_val=1 ; return
+	elif [ "$ret_val" -eq 1 ] ; then (( ++i ))
+	else ref="$(conv_address $ref)" ; fi
 	done
+	ret_val=0
 }
 
 # shellcheck disable=SC2034 # Referenced variable used in function to store
