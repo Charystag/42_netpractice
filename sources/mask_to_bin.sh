@@ -27,3 +27,17 @@ mask_to_bin(){
 	done
 	echo "$mask"
 }
+
+bin_to_mask(){
+	prompt="Please provide a mask of the form a.b.c.d with a b c d binary numbers between
+0 and 255"
+	err_string="Invalid mask provided"
+	mask_string="$1"
+	if [ "$1" = "" ] ; then user_input "$prompt" "mask_string" ; fi
+	is_binary "$mask_string"
+	if [ "$mask_string" = "" -o "$ret_val" -ne 1 ]
+	then echo "$err_string" ; ret_val=1 ; return ; fi
+	IFS='.' read -ra mask_values<<<"$mask_string"
+	declare -i i=0
+	if [ 
+}
