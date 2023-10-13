@@ -51,7 +51,7 @@ to_binary(){
 user_input(){
 	if [ "$2" = "" ] ; then echo "Function usage: user_input prompt var" ; return 1 ; fi
 	declare -n ref="$2"
-	echo "$1"
+	echo -e "$1"
 	read -r ref
 }
 
@@ -64,5 +64,5 @@ mask_description="The value of the bytes of the subnet mask can be in the follwi
 - 224(dec) or 11100000(bin) = 3 bits on\n\
 - 192(dec) or 11000000(bin) = 2 bits on\n\
 - 128(dec) or 10000000(bin) = 1 bit  on\n\
-- 0(dec)   or 00000000(bin) = 0 bit  on\n\
+- 0(dec)   or 00000000(bin) = 0 bit  on\
 "

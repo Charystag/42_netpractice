@@ -37,6 +37,7 @@ Example: /25"
 	BIN_TO_MASK
 bin_to_mask(){
 	prompt="Please provide a mask of the form x.y.z.t with x,y,z,t in [0.255]
+$mask_description
 Example: 255.255.252.0"
 	err_string="Invalid mask provided"
 	mask_string="$1"
