@@ -38,7 +38,13 @@ Example: 255.255.255.128 or 11111111.11111111.11111111.11110000 or /32"
 		fi
 		((++i))
 	done
-	echo "This is the min range : $(conv_address $min_range 2 10)"
-	echo "This is the max range : $(conv_address $max_range 2 10)"
+	tmp_min="$(conv_address $min_range 2 10)"
+	tmp_max="$(conv_address $max_range 2 10)"
+	echo "This is the min range : $tmp_min"
+	echo "This is the max range : $tmp_max"
+	printf "%b%b%b\n" "The address" "$RED $tmp_min " "$CRESET(all 0 in the host part match \
+with the network address) is excluded"	
+	printf "%b%b%b\n" "The address" "$RED $tmp_max " "$CRESET(all 1 in the host part match \
+with the network loopback address) is excluded"
 	ret_val=0
 }
