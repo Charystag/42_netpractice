@@ -11,8 +11,10 @@ for i in "${util[@]}" ; do source "$i" ; done
 	It then prints the min and max ranges on standard output
 	GET_RANGE
 get_range(){
-	a_prompt="Please provide an ip address"
-	m_prompt="Please enter a subnet mask"
+	a_prompt="Please provide an ip address in decimal format
+Example: 124.213.128.219 or 01111111.01111011.11010101.11111000"
+	m_prompt="Please enter a subnet mask in decimal, binary or CIDR format
+Example: 255.255.255.128 or 11111111.11111111.11111111.11110000 or /32"
 	if [ "$2" = "" ]
 	then
 		user_input "$a_prompt" address 
@@ -36,7 +38,13 @@ get_range(){
 		fi
 		((++i))
 	done
-	echo "This is the min range : $(conv_address $min_range 2 10)"
-	echo "This is the max range : $(conv_address $max_range 2 10)"
+	tmp_min="$(conv_address $min_range 2 10)"
+	tmp_max="$(conv_address $max_range 2 10)"
+	echo "This is the min range : $tmp_min"
+	echo "This is the max range : $tmp_max"
+	printf "%b%b%b\n" "The address" "$RED $tmp_min " "$CRESET(all 0 in the host part match \
+with the network address) is excluded"	
+	printf "%b%b%b\n" "The address" "$RED $tmp_max " "$CRESET(all 1 in the host part match \
+with the network loopback address) is excluded"
 	ret_val=0
 }

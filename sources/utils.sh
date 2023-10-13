@@ -1,4 +1,6 @@
 #!/usr/bin/bash
+colors="colorcodes.sh"
+. "$colors"
 
 :<<-'IS_BINARY'
 	Function that takes a string as an input and checks that for each digit
@@ -52,3 +54,15 @@ user_input(){
 	echo "$1"
 	read -r ref
 }
+
+mask_description="The value of the bytes of the subnet mask can be in the follwing set :\n\
+- 255(dec) or 11111111(bin) = 8 bits on\n\
+- 254(dec) or 11111110(bin) = 7 bits on\n\
+- 252(dec) or 11111100(bin) = 6 bits on\n\
+- 248(dec) or 11111000(bin) = 5 bits on\n\
+- 240(dec) or 11110000(bin) = 4 bits on\n\
+- 224(dec) or 11100000(bin) = 3 bits on\n\
+- 192(dec) or 11000000(bin) = 2 bits on\n\
+- 128(dec) or 10000000(bin) = 1 bit  on\n\
+- 0(dec)   or 00000000(bin) = 0 bit  on\n\
+"
