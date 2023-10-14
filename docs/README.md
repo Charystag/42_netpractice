@@ -28,15 +28,15 @@ The script is able to convert IP addresses from the following formats :
 # Subnet Masks conversion
 Another task that you'll have to do to realize the netpractice project is to convert subnet masks to analyse which bits are on and off in order to do computations to know the length of the subnet mask and the number of hosts that can be on the network.
 The script is able to convert subnet masks from the following formats :
--CIDR notation to dotted binary notation
+- CIDR notation to dotted binary notation
 - Dotted binary notation to CIDR notation
 
 # IP addresses range computation
 The last task that you'll have to do to realize the netpractice project is to compute the range of IP addresses that can be on a network. To do so, you'll have to know an IP address and a subnet mask. The script is able to compute the range of IP addresses with IP and masks from the following formats :
--IP address:
+- IP address:
     - Dotted decimal notation
     - Dotted binary notation
--Subnet mask:
+- Subnet mask:
     - Dotted decimal notation
     - Dotted binary notation
     - CIDR notation
