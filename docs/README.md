@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-1. [What is this script about ?](#What-is-this-script-about-?)
-2. [How to use it ?](#How-to-use-it-?)
+1. [What is this script about ?](#What-is-this-script-about-)
+2. [How to use it ?](#How-to-use-it-)
 3. [IP addresses conversion](#IP-addresses-conversion)
 4. [Subnet Masks conversion](#Subnet-Masks-conversion)
 5. [IP addresses range computation](#IP-addresses-range-computation)
