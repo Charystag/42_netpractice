@@ -2,11 +2,11 @@
 
 ## Table of Contents
 
-1. [What is this script about]
-2. [How to use it?]
-3. [IP addresses conversion]
-4. [Subnet Masks conversion]
-5. [IP addresses range computation]
+1. [What is this script about ?](#What-is-this-script-about-?)
+2. [How to use it ?](#How-to-use-it-?)
+3. [IP addresses conversion](#IP-addresses-conversion)
+4. [Subnet Masks conversion](#Subnet-Masks-conversion)
+5. [IP addresses range computation](#IP-addresses-range-computation)
 
 # What is this script about ? 
 The goal of this set of bash functions is to help someone that doesn't know how ip addressing
